@@ -1,0 +1,29 @@
+/**************************************************************************************
+ *                               Hangman v2.0
+ * 
+ * Welcome to Hangman! This suite is designed to provide a suite of tools to play 
+ * around with the game of Hangman.
+ * 
+ * Features:
+ *    -Provides objects and methods with which to play the game of Hangman, starting
+ *     from a given vector<string>. Game must be played using C++ commands (i.e. no
+ *     interface yet.
+ *
+ * 
+ * Planned Updates: 
+ *    -Human playing:
+ *       -Start game from a string
+ *       -Random game
+ *       -Interaction interface
+ *    -AI playing:
+ *       -Various AI solvers:
+ *          -Random
+ *          -Brute force
+ *          -Letter frequency
+ *       -Tools to compare solvers:
+ *          -Running time comparison
+ *          -Guess comparison
+ *    -Overarching tools package
+ *       -Used outside of this application
+ *          -Allows user to pull any of the features
+ 
