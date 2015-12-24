@@ -173,7 +173,7 @@ static GameAttempt humanSolve(Game game) {
    do {
          
       //Display game status
-      //cout << attempt.status();
+      cout << attempt.status() << endl;
       
       
       //Logic
@@ -278,7 +278,7 @@ static GameAttempt humanSolve(Game game) {
             }
          }
          
-      cout << resultMessage << endl;
+      cout << dec << resultMessage << endl;                 //Display result of previous operation. May be error.
       
    }
    while(!HangTools::equalsIgnoreCase(command, "quit"));

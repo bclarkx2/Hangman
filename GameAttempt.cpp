@@ -24,6 +24,7 @@ GameAttempt::GameAttempt(Game gameIn) {
    guesses.initialize();            //Set all characters to not having been guessed
    numPhraseGuesses = 0;
    numLetterGuesses = 0;
+   numWrongLetterGuesses = 0;
    finished = false;
    runningTime = 0;
 }
@@ -62,8 +63,16 @@ int GameAttempt::getNumLetterGuesses() {
    return numLetterGuesses;
 }
 
+int GameAttempt::getNumWrongLetterGuesses() {
+   return numWrongLetterGuesses;
+}
+
 int GameAttempt::getRunningTime() {
    return runningTime;
+}
+
+vector<char> GameAttempt::getAlreadyGuessed() {
+   return alreadyGuessed;
 }
 
 bool GameAttempt::isFinished() {
@@ -88,12 +97,20 @@ void GameAttempt::setNumLetterGuesses(int numLetterGuessesIn) {
    numLetterGuesses = numLetterGuessesIn;
 }
 
+void GameAttempt::setNumWrongLetterGuesses(int numWrongLetterGuessesIn) {
+   numWrongLetterGuesses = numWrongLetterGuessesIn;
+}
+
 void GameAttempt::setRunningTime(int runningTimeIn) {
    runningTime = runningTimeIn;
 }
 
 void GameAttempt::setIsFinished(bool finishedIn) {
    finished = finishedIn;
+}
+
+void GameAttempt::setAlreadyGuessed(vector<char> alreadyGuessedIn) {
+   alreadyGuessed = alreadyGuessedIn;
 }
 
 
@@ -119,6 +136,13 @@ bool GameAttempt::guessLetter(char guess) {
       if(getGame().getCharsInPhrase().contains(toupper(guess)) || //If this char is a correct guess
          getGame().getCharsInPhrase().contains(tolower(guess))){  
          guessSuccess = true;                                     // Mark this guess as correct
+      }
+      else {                                                      //New guess, but an incorrect one
+         vector<char> newAlreadyGuessed = getAlreadyGuessed();
+         newAlreadyGuessed.push_back(guess);
+         sort(newAlreadyGuessed.begin(), newAlreadyGuessed.end());
+         setAlreadyGuessed(newAlreadyGuessed);
+         setNumWrongLetterGuesses(getNumWrongLetterGuesses() + 1);
       }
    }
    else {
@@ -163,6 +187,79 @@ bool GameAttempt::guessPhrase(vector<string> guess) {
  */
 bool GameAttempt::haveGuessed(char c) {
    
-   return getGuesses().contains(c);
+   return getGuesses().contains(toupper(c)) || getGuesses().contains(tolower(c));
    
+}
+
+/**
+ * At any moment, this method will return a string (formatted to print to console)
+ * giving the current status of the attempt. The following information is included:
+ *    -The phrase to be guessed, displayed as blanks. The letters that you have
+ *     already guessed will show up as the letters.
+ *    -Number of letter guesses made
+ *    -Number of phrase guesses made
+ *    -Failed guesses already made
+ */
+string GameAttempt::status() {
+   
+   //Various parts, formatted as strings
+   string message = string();
+   string phraseString = string();
+   string letterGuessesString = string();
+   string phraseGuessesString = string();
+   string alreadyGuessedString = string();
+      
+   //phaseString
+   vector<string> phrase = getGame().getPhrase();
+      
+   for(int i = 0; i < phrase.size(); i++) {                          //For all words in the phrase
+         
+      string s = phrase[i];                                          //Save the current word
+         
+      for(int j = 0; j < s.size(); j++) {                            //For all characters in the current word
+         
+         if(haveGuessed(s[j])) {                                     //If the letter has been guessed :
+            phraseString.push_back(s[j]);                               //    Append the letter to the phraseString
+         }
+         else {                                                      //If it hasn't been guessed, leave it as a blank
+            phraseString.push_back('_');
+         }
+      }
+      phraseString.push_back(' ');                                   //Add a space between words
+   }
+   phraseString.push_back('\t');
+   
+   //letterGuessesString
+   
+   ostringstream s1;
+   s1 << "Number of wrong letter guesses: " << dec << getNumWrongLetterGuesses() << '\t';
+   letterGuessesString = s1.str();
+   
+   //phraseGuessesString
+   
+   ostringstream s2;
+   s2 << "Number of wrong phrase guesses: " << dec << getNumPhraseGuesses() << '\t';
+   phraseGuessesString = s2.str();
+   
+   
+   //alreadyGuessedString
+   
+   vector<char> guessList = getAlreadyGuessed();
+   ostringstream s3;
+   s3 << "Incorrect Letters Guessed: ";
+   
+   for(int i = 0; i < guessList.size(); i++) {                       //For each incorrect character guessed
+      s3 << guessList[i] << ',' << ' ';                              //Add comma and space delimited char
+   }
+   s3 << '\t';
+   
+   alreadyGuessedString = s3.str();
+   
+   
+   //Setting up string
+   
+   message = phraseString + letterGuessesString + phraseGuessesString + alreadyGuessedString;
+   
+   
+   return message;
 }

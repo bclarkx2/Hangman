@@ -1,13 +1,13 @@
 /**************************************************************************************
- *                               Hangman v2.0
+ *                               Hangman 3.0
  * 
  * Welcome to Hangman! This suite is designed to provide a suite of tools to play 
  * around with the game of Hangman.
  * 
  * Features:
  *    -Provides objects and methods with which to play the game of Hangman, starting
- *     from a given vector<string>. Game must be played using C++ commands (i.e. no
- *     interface yet.
+ *     from a given vector<string>. Game can now be played from the command line,
+ *     however, there is no memory of guesses made.
  *
  * 
  * Planned Updates: 
