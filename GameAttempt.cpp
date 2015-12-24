@@ -113,12 +113,16 @@ bool GameAttempt::guessLetter(char guess) {
    
    bool guessSuccess = false;
    
-   if(!haveGuessed(guess)) {                                   //If this letter has not already been guessed
-      setNumLetterGuesses(getNumLetterGuesses()+1);            //Increment number of letter guesses
-      guesses.add(guess);                                      //Add letter to list of guessed chars
-      if(getGame().getCharsInPhrase().contains(guess)) {       //If this char is a correct guess
-         guessSuccess = true;                                  // Mark this guess as correct
+   if(!haveGuessed(guess)) {                                      //If this letter has not already been guessed
+      setNumLetterGuesses(getNumLetterGuesses()+1);               //Increment number of letter guesses
+      guesses.add(guess);                                         //Add letter to list of guessed chars
+      if(getGame().getCharsInPhrase().contains(toupper(guess)) || //If this char is a correct guess
+         getGame().getCharsInPhrase().contains(tolower(guess))){  
+         guessSuccess = true;                                     // Mark this guess as correct
       }
+   }
+   else {
+      guessSuccess = true;
    }
    
    return guessSuccess;                                        //Return success of the guess
@@ -138,7 +142,7 @@ bool GameAttempt::guessPhrase(vector<string> guess) {
    
    if(guess.size() == phrase.size()) {
       for(int i = 0; i < guess.size() && guessSuccess; i++) {
-         if(guess[i].compare(phrase[i]) != 0) {
+         if(!HangTools::equalsIgnoreCase(phrase[i], guess[i])) {
             guessSuccess = false;
          }
       }

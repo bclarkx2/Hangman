@@ -20,6 +20,7 @@
 #include "Constants.h"
 #include "CharList.h"
 #include "Game.h"
+#include "HangTools.h"
 
 //=================================
 // GameAttempt
