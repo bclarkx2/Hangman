@@ -43,7 +43,7 @@ class Game {
    
    Game(vector<string> phraseIn);
    
-   // Game(string stringIn);
+   Game(string stringIn);
 
    
    /*******Get/set Methods*********/

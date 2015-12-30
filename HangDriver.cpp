@@ -306,7 +306,7 @@ int main(int argc, char* argv[]) {
       
       case COMMAND_HUMANSOLVE: 
          { 
-            humanSolve(HangTools::selectAGame());
+            humanSolve(HangTools::randomGame(HangTools::getRandomNumber(0,10)));
          }
          break;
          
@@ -393,7 +393,7 @@ static void testHumanSolve(string command) {
    
    //Tools to use
    const long double startTime = time(0);
-   GameAttempt attempt = GameAttempt(HangTools::selectAGame());
+   GameAttempt attempt = GameAttempt(HangTools::randomGame(3));
    
    string firstWord = string();
    vector<string> remainder = vector<string>();
@@ -521,8 +521,11 @@ static void testHumanSolve(string command) {
          
    cout << command << ": " << resultMessage << endl;
 }
+
 /*
 int main() {
+
+   cout << boolalpha;
 
    //Testing equalsIgnoreCase
    
@@ -582,7 +585,65 @@ int main() {
    // testHumanSolve("guess a random phrase");
    // testHumanSolve("guess Billy Joe Bob");
 
+   //Testing getRandomNumber
+   
+   // cout << "(0,0): " << HangTools::getRandomNumber(0,0) << endl;
+   // cout << "(0,1): " << HangTools::getRandomNumber(0,1) << endl;
+   // cout << "(0,100): " << HangTools::getRandomNumber(0,100) << endl;
+   // cout << "(1,1): " << HangTools::getRandomNumber(1,1) << endl;
+   // cout << "(1,100): " << HangTools::getRandomNumber(1,100) << endl;
+   // cout << "(2,334): " << HangTools::getRandomNumber(2,334) << endl;
+//    
+   // cout << "(-1,30): " << HangTools::getRandomNumber(-1,30) << endl;
+   // cout << "(-10,34): " << HangTools::getRandomNumber(-10,34) << endl;
+   // cout << "(-349,-329): " << HangTools::getRandomNumber(-349,-329) << endl;
+//    
+   // cout << "(9,4): " << HangTools::getRandomNumber(9,4) << endl;
+   
+   //Testing randomGame
+   
+   //Input 0
+   Game g1 = HangTools::randomGame(0);
+   vector<string> p1 = g1.getPhrase();
+   
+   cout << "Input = 0. Phrase generated: \"";
+   for(int i = 0; i < p1.size(); i++) {
+      cout << p1[i] << " ";
+   }
+   cout << "\"" << endl;
+   
+   
+   //Input 1
+   Game g2 = HangTools::randomGame(1);
+   vector<string> p2 = g2.getPhrase();
+   
+   cout << "Input = 1. Phrase generated: \"";
+   for(int i = 0; i < p2.size(); i++) {
+      cout << p2[i] << " ";
+   }
+   cout << "\"" << endl;
+   
+   //Input 2
+   Game g3 = HangTools::randomGame(2);
+   vector<string> p3 = g3.getPhrase();
+   
+   cout << "Input = 2. Phrase generated: \"";
+   for(int i = 0; i < p3.size(); i++) {
+      cout << p3[i] << " ";
+   }
+   cout << "\"" << endl;
+   
+   
+   //Input 10
+   Game g4 = HangTools::randomGame(10);
+   vector<string> p4 = g4.getPhrase();
+   
+   cout << "Input = 10. Phrase generated: \"";
+   for(int i = 0; i < p4.size(); i++) {
+      cout << p4[i] << " ";
+   }
+   cout << "\"" << endl;
+   
    return 0;
 }
-
 */

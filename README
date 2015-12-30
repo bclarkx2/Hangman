@@ -5,16 +5,16 @@
  * around with the game of Hangman.
  * 
  * Features:
- *    -Provides objects and methods with which to play the game of Hangman, starting
- *     from a given vector<string>. Game can now be played from the command line,
- *     however, there is no memory of guesses made.
+ *    -Provides objects and methods with which to play the game of Hangman, using a 
+ *     random game. Game can now be played from the command line,
+ *     with full functionality.
  *
  * 
  * Planned Updates: 
  *    -Human playing:
  *       -Start game from a string
- *       -Random game
- *       -Interaction interface
+ *       -Control length of random game
+ *       -Select from a list of phrases for a random game, rather than random words
  *    -AI playing:
  *       -Various AI solvers:
  *          -Random

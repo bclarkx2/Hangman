@@ -14,6 +14,9 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <ctime>
 
 #include "Constants.h"
 #include "Game.h"
@@ -25,9 +28,13 @@
 using namespace std;
 
 
+const int DEFAULT_NUM_WORDS = 3;
+
 class HangTools {
    
    private:
+   
+   static vector<string> allWords;
    
    public:
    
@@ -37,12 +44,17 @@ class HangTools {
    
    /*******Get/set Methods*********/
    
+   // static vector<string> getAllWords();
+ 
+   // static void setAllWords(vector<string> allWordsIn);
    
    /********Class functions*******/
    
-   static Game selectAGame();
+   static Game randomGame(int numWords);
    
    static bool equalsIgnoreCase(string s1, string s2);
+   
+   static int getRandomNumber(int min, int max);
 
    /******Member functions********/
    

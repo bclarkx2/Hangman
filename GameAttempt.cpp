@@ -145,8 +145,11 @@ bool GameAttempt::guessLetter(char guess) {
          setNumWrongLetterGuesses(getNumWrongLetterGuesses() + 1);
       }
    }
-   else {
-      guessSuccess = true;
+   else {                                                         //Letter has been guessed. 
+      if(getGame().getCharsInPhrase().contains(toupper(guess)) || //If this char is a correct guess
+         getGame().getCharsInPhrase().contains(tolower(guess))){  
+         guessSuccess = true;                                     // Mark this guess as correct
+      }
    }
    
    return guessSuccess;                                        //Return success of the guess
